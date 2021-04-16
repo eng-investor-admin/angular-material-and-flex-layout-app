@@ -1,11 +1,48 @@
-<div class="main-container" fxLayout="row" fxLayout.lt-sm="column" fxFlex >
-  <div class="form-container" fxFlex="60" fxFlex.lt-sm="100px">
-    <mat-form-field appearance="fill">
-      <mat-label>日本円を入れてください｡</mat-label>
-      <input matInput type="number" [(ngModel)]="yen">
-    </mat-form-field>
+<div class="main-container" fxLayout="row" fxLayout.lt-sm="column" fxFlex>
+  <div class="form-container" fxFlex="60" fxFlex.lt-sm="grow" fxLayout="column">    
+    <div class="form-row" fxLayout="row">
+      <div class="form-box" fxFlex="50">
+        <mat-form-field class="espp-form">
+          <mat-label>銘柄</mat-label>
+          <input matInput />
+        </mat-form-field>
+      </div>
+      <div class="form-box" fxFlex="50">
+        <span></span>
+      </div>
+    </div>
+    <div class="form-row" fxLayout="row">
+      <div class="form-box" fxFlex="50">
+        <mat-form-field class="espp-form">
+          <mat-label>購入日</mat-label>
+          <input matInput [matDatepicker]="picker" />
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="form-box" fxFlex="50">
+        <mat-form-field class="espp-form">
+          <mat-label>株数</mat-label>
+          <input matInput />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="form-row" fxLayout="row">
+      <div class="form-box" fxFlex="50">
+        <mat-form-field class="espp-form">
+          <mat-label>購入日価格</mat-label>
+          <input matInput />
+        </mat-form-field>
+      </div>
+      <div class="form-box" fxFlex="50">
+        <mat-form-field class="espp-form">
+          <mat-label>購入価格</mat-label>
+          <input matInput />
+        </mat-form-field>
+      </div>
+    </div>
   </div>
-  <div class="result-container" fxFlex="40" fxFlex.lt-sm="100px">
+  <div class="result-container" fxFlex="40" fxFlex.lt-sm="grow">
     米ドルだと {{ dollar() | currency }} です｡
   </div>
 </div>
