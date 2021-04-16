@@ -1,12 +1,22 @@
 .form-container {
-  background-color: white;
-}
-
-.result-container {
-  background-color: skyblue;
+  margin-top: 10px;
 }
 
 .espp-form {
   margin-left: 10px;
   width: 90%;
+}
+
+.result-box {
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.result-table {
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 95%;
 }
