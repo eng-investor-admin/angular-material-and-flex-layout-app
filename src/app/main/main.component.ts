@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 export interface PeriodicElement {
   name: string;
@@ -28,7 +29,17 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class MainComponent implements OnInit {
   yen = 0;
 
-  constructor() {}
+  esppForm: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.esppForm = this.fb.group({
+      name: "",
+      purchaseDate: ["", Validators.required],
+      quantity: [0, Validators.required],
+      marketPrice: [0, Validators.required],
+      purchasePrice: [0, Validators.required],
+    });
+  }
 
   displayedColumns: string[] = ["position", "name", "weight", "symbol"];
   dataSource = ELEMENT_DATA;
