@@ -1,5 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Subscription } from "rxjs";
+import { debounceTime } from "rxjs/operators";
 
 export interface PeriodicElement {
   name: string;
@@ -26,10 +28,12 @@ const ELEMENT_DATA: PeriodicElement[] = [
   templateUrl: "./main.component.html",
   styleUrls: ["./main.component.scss"],
 })
-export class MainComponent implements OnInit {
+export class MainComponent implements OnInit, OnDestroy {
   yen = 0;
-
+  profit = 0;
   esppForm: FormGroup;
+
+  private subscriptions = new Subscription();
 
   constructor(private fb: FormBuilder) {
     this.esppForm = this.fb.group({
@@ -44,8 +48,39 @@ export class MainComponent implements OnInit {
   displayedColumns: string[] = ["position", "name", "weight", "symbol"];
   dataSource = ELEMENT_DATA;
 
-  ngOnInit(): void {}
-  dollar(): number {
-    return this.yen / 105;
+  ngOnInit(): void {
+    const quantityControl = this.esppForm.get("quantity");
+    if (quantityControl) {
+      this.subscriptions.add(
+        quantityControl.valueChanges
+          .pipe(debounceTime(500))
+          .subscribe(() => this.updateProfit())
+      );
+    }
+    const marketPriceControl = this.esppForm.get("marketPrice");
+    if (marketPriceControl) {
+      this.subscriptions.add(
+        marketPriceControl.valueChanges
+          .pipe(debounceTime(500))
+          .subscribe(() => this.updateProfit())
+      );
+    }
+    const purchasePriceControl = this.esppForm.get("purchasePrice");
+    if (purchasePriceControl) {
+      this.subscriptions.add(
+        purchasePriceControl.valueChanges
+          .pipe(debounceTime(500))
+          .subscribe(() => this.updateProfit())
+      );
+    }
+  }
+  updateProfit(): void {
+    const quantity = this.esppForm.get("quantity")?.value || 0;
+    const marketPrice = this.esppForm.get("marketPrice")?.value || 0;
+    const purchasePrice = this.esppForm.get("purchasePrice")?.value || 0;
+    this.profit = quantity * (marketPrice - purchasePrice) * 105;
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }
