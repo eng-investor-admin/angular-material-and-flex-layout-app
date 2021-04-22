@@ -1,5 +1,12 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ValidatorFn,
+  Validators,
+} from "@angular/forms";
 import { Subscription } from "rxjs";
 import { debounceTime } from "rxjs/operators";
 
@@ -23,6 +30,15 @@ const ELEMENT_DATA: PeriodicElement[] = [
   { position: 10, name: "Neon", weight: 20.1797, symbol: "Ne" },
 ];
 
+function IntegerValidation(min: number): ValidatorFn {
+  return (c: AbstractControl): { [key: string]: any } | null => {
+    if (parseFloat(c.value) == parseInt(c.value) && !isNaN(c.value) && c.value >= min) {
+      return null;
+    }
+    return { integerValiation: true };
+  };
+}
+
 @Component({
   selector: "app-main",
   templateUrl: "./main.component.html",
@@ -37,11 +53,11 @@ export class MainComponent implements OnInit, OnDestroy {
 
   constructor(private fb: FormBuilder) {
     this.esppForm = this.fb.group({
-      name: "",
+      name: ["", Validators.required],
       purchaseDate: ["", Validators.required],
-      quantity: [0, Validators.required],
-      marketPrice: [0, Validators.required],
-      purchasePrice: [0, Validators.required],
+      quantity: [0, [Validators.required, IntegerValidation(1)]],
+      marketPrice: [0, [Validators.required, Validators.min(0)]],
+      purchasePrice: [0, [Validators.required, Validators.min(0)]],
     });
   }
 
