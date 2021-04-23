@@ -1,6 +1,6 @@
 <div fxLayout="column">
   <div fxFlex>
-    <form novalidate [formGroup]="esppForm">
+    <form novalidate [formGroup]="esppForm" (ngSubmit)="save()">
       <div class="main-container" fxLayout="row" fxLayout.lt-sm="column" fxFlex>
         <div class="form-container" fxFlex="60" fxFlex.lt-sm="grow" fxLayout="column">
           <div class="form-row" fxLayout="row">

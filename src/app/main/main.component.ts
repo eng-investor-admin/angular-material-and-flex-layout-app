@@ -99,4 +99,17 @@ export class MainComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
+
+  save(): void {
+    const name = this.esppForm.get("name")?.value || "";
+    const purchaseDate = this.esppForm.get("purchaseDate")?.value || 0;
+
+    this.esppForm.reset({
+      name: name,
+      purchaseDate: purchaseDate,
+      quantity: 1,
+      marketPrice: 0,
+      purchasePrice: 0,
+    });
+  }
 }
