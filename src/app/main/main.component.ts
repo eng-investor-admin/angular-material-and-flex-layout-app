@@ -78,7 +78,10 @@ export class MainComponent implements OnInit, OnDestroy {
       this.subscriptions.add(
         marketPriceControl.valueChanges
           .pipe(debounceTime(500))
-          .subscribe(() => this.updateProfit())
+          .subscribe(() => {
+            this.copyToPurchasePrice()
+            this.updateProfit()
+          })
       );
     }
     const purchasePriceControl = this.esppForm.get("purchasePrice");
@@ -111,5 +114,13 @@ export class MainComponent implements OnInit, OnDestroy {
       marketPrice: 0,
       purchasePrice: 0,
     });
+  }
+
+  copyToPurchasePrice(): void {
+    const marketPriceControl = this.esppForm.get("marketPrice");
+    const purchasePriceControl = this.esppForm.get("purchasePrice");
+    if (marketPriceControl && purchasePriceControl && purchasePriceControl.untouched) {
+      purchasePriceControl.setValue(marketPriceControl.value)
+    }
   }
 }
