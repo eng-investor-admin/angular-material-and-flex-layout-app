@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import {
   AbstractControl,
   FormBuilder,
-  FormControl,
   FormGroup,
   ValidatorFn,
   Validators,
@@ -77,8 +76,8 @@ export class MainComponent implements OnInit, OnDestroy {
         marketPriceControl.valueChanges
           .pipe(debounceTime(500))
           .subscribe(() => {
-            this.copyToPurchasePrice()
-            this.updateProfit()
+            this.copyToPurchasePrice();
+            this.updateProfit();
           })
       );
     }
@@ -131,7 +130,7 @@ export class MainComponent implements OnInit, OnDestroy {
     const marketPriceControl = this.esppForm.get("marketPrice");
     const purchasePriceControl = this.esppForm.get("purchasePrice");
     if (marketPriceControl && purchasePriceControl && purchasePriceControl.untouched) {
-      purchasePriceControl.setValue(marketPriceControl.value)
+      purchasePriceControl.setValue(marketPriceControl.value);
     }
   }
 }
