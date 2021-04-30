@@ -22,4 +22,8 @@ describe('HeaderComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have title "Angular Materialテストアプリ" in toolbar', () => {    
+    expect(fixture.nativeElement.querySelector('span').textContent).toContain('Angular Materialテストアプリ')
+  }); 
 });

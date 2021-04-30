@@ -16,16 +16,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'angular-material-and-flex-layout-app'`, () => {
+  it(`should have as title 'Angular Materialテストアプリ'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('angular-material-and-flex-layout-app');
+    expect(app.title).toEqual('Angular Materialテストアプリ');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('angular-material-and-flex-layout-app app is running!');
-  });
 });
